@@ -1,6 +1,10 @@
 "use strict";
-function greeter(person) {
-    return "Hello, " + person;
-}
-var user = "Jane User";
-document.body.textContent = greeter(user);
+var Main = /** @class */ (function () {
+    function Main() {
+    }
+    Main.prototype.lauchApp = function () {
+        document.body.textContent = 'app lauched!!!!asasd';
+    };
+    return Main;
+}());
+new Main().lauchApp();

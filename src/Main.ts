@@ -1,7 +1,8 @@
-function greeter(person: string) {
-    return "Hello, " + person;
+class Main {
+
+    public lauchApp():void {
+        document.body.textContent = 'app lauched!!!!asasd';
+    }
 }
 
-let user = "Jane User";
-
-document.body.textContent = greeter(user);
+new Main().lauchApp();
