@@ -1,10 +1,11 @@
-"use strict";
-var Main = /** @class */ (function () {
-    function Main() {
+import { Router } from "./Router";
+class Main {
+    constructor() {
+        this.router = new Router();
+        console.log('constructed new instance of program');
     }
-    Main.prototype.lauchApp = function () {
-        document.body.textContent = 'app lauched!!!!asasd';
-    };
-    return Main;
-}());
-new Main().lauchApp();
+    launchApp() {
+        this.router.handleRequest();
+    }
+}
+new Main().launchApp();
