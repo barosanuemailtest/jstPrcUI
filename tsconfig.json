@@ -6,8 +6,9 @@
       "ES2015",
       "DOM"
     ],
-    "outDir": "./build",
+    "outDir": "./dist",
     "rootDir": "./src",
+    "sourceMap": true,
     "strict": true,
     "strictNullChecks": true
   }
