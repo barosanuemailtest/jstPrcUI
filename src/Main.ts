@@ -2,15 +2,26 @@ import { Router } from "./Router";
 
 class Main {
 
-    public constructor (){
+    public constructor() {
         console.log('constructed new instance of program');
     }
 
-    private router: Router = new Router();
+    router: Router = new Router();
 
-    public launchApp():void {
+    public launchApp(): void {
         this.router.handleRequest();
     }
 }
 
-new Main().launchApp();
+const main = new Main();
+
+// global actions:
+declare global {
+    interface Window {
+        Router: Router;
+    }
+}
+
+window.Router = main.router;
+
+main.launchApp();

@@ -4,20 +4,24 @@ export class Router {
         return window.location.pathname;
     }
 
-    private setMainContainer(htmlPah: string): void {
-        document.getElementById('main-container')!.innerHTML = `<iframe src="${htmlPah}"></iframe>`;
+    private setContainer(htmlPah: string): void {
+        document.getElementById('main-container')!.innerHTML = `<object type="text/html" data=${htmlPah} ></object>`;
     }
 
     public handleRequest() {
         console.log('handling request for: ' + this.getRoute());
         switch (this.getRoute()) {
             case '/login':
-                this.setMainContainer('./html/login.html')
+                this.setLogin();
                 break;
             default:
-                this.setMainContainer('./html/main.html')
+                this.setContainer('./html/main.html');
                 break;
         }
+    }
+
+    public setLogin() {
+        this.setContainer('./html/login.html')
     }
 
 }
