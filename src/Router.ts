@@ -1,11 +1,14 @@
+import { MainViewController } from "./controllers/MainViewController";
+import { LoginController } from "./controllers/LoginController";
+
 export class Router {
+
+    private mainViewController: MainViewController = new MainViewController(this);
+    private loginController: LoginController = new LoginController(this);
+    private mainElement = document.getElementById('main-container');
 
     private getRoute(): string {
         return window.location.pathname;
-    }
-
-    private setContainer(htmlPah: string): void {
-        document.getElementById('main-container')!.innerHTML = `<object type="text/html" data=${htmlPah} ></object>`;
     }
 
     public handleRequest() {
@@ -15,13 +18,26 @@ export class Router {
                 this.setLogin();
                 break;
             default:
-                this.setContainer('./html/main.html');
+                if (this.mainElement) {
+                    this.mainElement.append(this.mainViewController.createView());
+                } else {
+                    console.error('main element not found!!!!!')
+                }
+
                 break;
         }
     }
 
     public setLogin() {
-        this.setContainer('./html/login.html')
+
+        if (this.mainElement) {
+            this.mainElement.innerHTML = '';
+            this.mainElement.append(this.loginController.createView());
+        } else {
+            console.error('main element not found!!!!!')
+        }
+        // console.log('Router#setLogin()')
+        // document.getElementById('main-container')!.replaceWith(this.loginController.createView());
     }
 
 }

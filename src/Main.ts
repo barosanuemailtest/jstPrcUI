@@ -15,13 +15,4 @@ class Main {
 
 const main = new Main();
 
-// global actions:
-declare global {
-    interface Window {
-        Router: Router;
-    }
-}
-
-window.Router = main.router;
-
 main.launchApp();
