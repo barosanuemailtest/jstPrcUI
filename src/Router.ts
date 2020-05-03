@@ -4,7 +4,7 @@ import { LoginController } from "./controllers/LoginController";
 export class Router {
 
     private mainViewController: MainViewController = new MainViewController(this);
-    private loginController: LoginController = new LoginController(this);
+    private loginController: LoginController = new LoginController();
     private mainElement = document.getElementById('main-container');
 
     private getRoute(): string {
