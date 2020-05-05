@@ -1,20 +1,14 @@
-import { Router } from "../Router";
-import { IController } from "./IController";
 import { LoginService } from "../services/LoginService";
 import { SessionToken } from "../models/AuthModels";
+import { BaseController } from "./BaseController";
 
-export class LoginController implements IController {
+export class LoginController extends BaseController {
 
     private loginService: LoginService = new LoginService();
-    private router: Router;
-
-    public constructor(router: Router) {
-        this.router = router;
-    }
 
     public createView(): HTMLDivElement {
-        const container = document.createElement('div');
-        container.style.width = '200px';
+
+        this.container.style.width = '200px';
         const title = document.createElement('h2');
         title.innerText = 'Please login';
 
@@ -49,10 +43,7 @@ export class LoginController implements IController {
             }
         }
 
-
-
-        container.append(title, userNameLabel, userNameInput, passwordLabel, passwordInput, loginButton, breakz, errorLabel);
-        return container
+        this.container.append(title, userNameLabel, userNameInput, passwordLabel, passwordInput, loginButton, breakz, errorLabel);
+        return this.container
     }
-
 }
