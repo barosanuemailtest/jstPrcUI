@@ -6,8 +6,11 @@ import { SessionToken } from "../models/AuthModels";
 export class LoginController implements IController {
 
     private loginService: LoginService = new LoginService();
+    private router: Router;
 
-    public constructor() { }
+    public constructor(router: Router) {
+        this.router = router;
+    }
 
     public createView(): HTMLDivElement {
         const container = document.createElement('div');
@@ -39,7 +42,7 @@ export class LoginController implements IController {
                 userNameInput.value,
                 passwordInput.value);
             if (sessionToken) {
-
+                this.router.switchToDashboardView();
             } else {
                 errorLabel.innerText = 'wrong username or password!'
                 errorLabel.style.visibility = 'visible';

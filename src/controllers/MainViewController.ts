@@ -19,7 +19,7 @@ export class MainViewController implements IController {
         const loginButton = document.createElement('button');
         loginButton.innerText = 'Login';
         loginButton.onclick = () => {
-            this.router.setLogin();
+            this.router.switchToLoginView();
         }
         container.append(title, article, loginButton);
         return container;
