@@ -3,6 +3,7 @@ import { request } from 'http'
 export class DataService {
 
     public async get(url: string): Promise<any> {
+
         const options = {
             hostname: url,
             method: 'GET'
