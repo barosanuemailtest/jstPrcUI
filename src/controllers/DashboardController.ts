@@ -12,7 +12,7 @@ export class DashboardController extends BaseController {
         const getDataButton = this.createButton('get some!', async () => {
             try {
                 console.log('getting some:');
-                const result = await this.dataService.get('http://localhost:8080/users/getall', '85db5rj0nchrjtc2yylf');
+                const result = await this.dataService.get('http://localhost:8080/users/getall', '1zrfyygxe5u0ka3byntzbn');
                 console.log('end of get some!')
                 console.log(result)
             } catch (error) {
