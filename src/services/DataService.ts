@@ -14,12 +14,12 @@ export class DataService {
                 res.on('data', data => {
                     result += data
                 })
-                req.on('error', error => {
+                res.on('error', error => {
                     console.error(error);
                     reject(error);
                 })
 
-                req.on('end', () => {
+                res.on('end', () => {
                     req.end()
                     resolve(result)
                 })
@@ -27,6 +27,3 @@ export class DataService {
         })
     }
 }
-
-const result = new DataService().get('https://postman-echo.com/get?foo1=bar1&foo2=bar2');
-console.log('a');

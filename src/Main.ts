@@ -8,8 +8,8 @@ class Main {
 
     router: Router = new Router();
 
-    public launchApp(): void {
-        this.router.handleRequest();
+    public async launchApp(): Promise<void> {
+        await this.router.handleRequest();
     }
 }
 

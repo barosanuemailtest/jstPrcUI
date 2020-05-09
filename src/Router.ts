@@ -13,7 +13,7 @@ export class Router {
         return window.location.pathname;
     }
 
-    public handleRequest() {
+    public async handleRequest() {
         console.log('handling request for: ' + this.getRoute());
         switch (this.getRoute()) {
             case '/login':
