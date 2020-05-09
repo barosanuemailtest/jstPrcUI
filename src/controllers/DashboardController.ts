@@ -10,19 +10,18 @@ export class DashboardController extends BaseController {
         container.innerText = 'This is the Dashboard! You should not be here if not logged in!!!'
 
         const getDataButton = this.createButton('get some!', async () => {
-            console.log('getting some:');
-            const result = await this.dataService.get('https://postman-echo.com/get?foo1=bar1&foo2=bar2');
-            console.log('end of get some!')
+            try {
+                console.log('getting some:');
+                const result = await this.dataService.get('http://localhost:8080/users/getall', '85db5rj0nchrjtc2yylf');
+                console.log('end of get some!')
+                console.log(result)
+            } catch (error) {
+                console.error(error)
+            }
 
-            console.log(result)
         });
         container.appendChild(getDataButton);
 
         return container;
     }
-
-    public async getStuff() {
-
-    }
-
 }

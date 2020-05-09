@@ -1,30 +1,29 @@
-import { request } from 'http'
-
 export class DataService {
 
-    public async get(url: string): Promise<any> {
-
-        const options = {
-            hostname: url,
-            method: 'GET'
-        }
+    public async get(url: string, authorization?: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            let result = '';
-            const req = request(options, res => {
-                console.log(`statusCode: ${res.statusCode}`)
-                res.on('data', data => {
-                    result += data
-                })
-                res.on('error', error => {
-                    console.error(error);
-                    reject(error);
-                })
-
-                res.on('end', () => {
-                    req.end()
-                    resolve(result)
-                })
-            })
-        })
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            if (authorization) {
+                xhr.setRequestHeader('Authorization', authorization)
+            }
+            xhr.onload = function () {
+                if (this.status >= 200 && this.status < 300) {
+                    resolve(xhr.response);
+                } else {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                }
+            };
+            xhr.onerror = function () {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            };
+            xhr.send();
+        });
     }
 }
