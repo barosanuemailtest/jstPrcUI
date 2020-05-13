@@ -36,7 +36,7 @@ export class LoginController extends BaseController {
                 userNameInput.value,
                 passwordInput.value);
             if (sessionToken) {
-                this.router.switchToDashboardView();
+                this.router.switchToDashboardView(sessionToken);
             } else {
                 errorLabel.innerText = 'wrong username or password!'
                 errorLabel.style.visibility = 'visible';

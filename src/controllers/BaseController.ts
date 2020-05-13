@@ -1,4 +1,5 @@
 import { Router } from "../Router";
+import { SessionToken } from "../models/AuthModels";
 
 export abstract class BaseController {
 
@@ -9,7 +10,7 @@ export abstract class BaseController {
     constructor(router: Router) {
         this.router = router;
     }
-    abstract createView(): HTMLDivElement;
+    abstract createView(sessionToken?: SessionToken): HTMLDivElement;
 
     protected createDiv(): HTMLDivElement {
         return document.createElement('div');

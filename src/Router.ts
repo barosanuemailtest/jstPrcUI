@@ -1,6 +1,7 @@
 import { MainViewController } from "./controllers/MainViewController";
 import { LoginController } from "./controllers/LoginController";
 import { DashboardController } from "./controllers/DashboardController";
+import { SessionToken } from "./models/AuthModels";
 
 export class Router {
 
@@ -20,7 +21,7 @@ export class Router {
                 this.switchToLoginView();
                 break;
             case '/board':
-                this.switchToDashboardView();
+                this.switchToDashboardView({} as any);
                 break;
             default:
                 if (this.mainElement) {
@@ -42,10 +43,10 @@ export class Router {
         }
     }
 
-    public switchToDashboardView() {
+    public switchToDashboardView(sessionToken: SessionToken) {
         if (this.mainElement) {
             this.mainElement.innerHTML = '';
-            this.mainElement.append(this.dashboardController.createView());
+            this.mainElement.append(this.dashboardController.createView(sessionToken));
         } else {
             console.error('main element not found!!!!!')
         }
