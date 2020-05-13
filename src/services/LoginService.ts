@@ -1,18 +1,12 @@
 import { SessionToken } from "../models/AuthModels";
+import { DataService } from "./DataService";
 
 export class LoginService {
 
-    public async login(username: string, password: string): Promise<SessionToken | null> {
-        if (password == 'a') {
-            return {
-                accessRights: [],
-                expirationTime: new Date(),
-                tokenId: '123',
-                userName: username,
-                valid: true
-            }
-        }
-        return null;
+    private dataService: DataService = new DataService();
 
+    public async login(username: string, password: string): Promise<SessionToken | null> {
+
+        return await this.dataService.login(username, password);
     }
 }
