@@ -21,7 +21,7 @@ export class Router {
                 this.switchToLoginView();
                 break;
             case '/board':
-                this.switchToDashboardView({} as any);
+                this.switchToDashboardView(null);
                 break;
             default:
                 if (this.mainElement) {
@@ -43,7 +43,7 @@ export class Router {
         }
     }
 
-    public switchToDashboardView(sessionToken: SessionToken) {
+    public switchToDashboardView(sessionToken: SessionToken | null) {
         if (this.mainElement) {
             this.mainElement.innerHTML = '';
             this.mainElement.append(this.dashboardController.createView(sessionToken));

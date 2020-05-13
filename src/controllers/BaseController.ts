@@ -10,7 +10,7 @@ export abstract class BaseController {
     constructor(router: Router) {
         this.router = router;
     }
-    abstract createView(sessionToken?: SessionToken): HTMLDivElement;
+    abstract createView(sessionToken?: SessionToken | null): HTMLDivElement;
 
     protected createDiv(): HTMLDivElement {
         return document.createElement('div');
