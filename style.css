@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
   }
+ tr:hover {
+   background-color: #777;
+ } 
   
 
 body {

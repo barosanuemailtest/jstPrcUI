@@ -7,6 +7,7 @@ export class DataService {
     private readonly baseUrl = 'http://localhost:8080/';
     private readonly loginUrl = this.baseUrl + 'login';
     private readonly allUsersUrl = this.baseUrl + 'users/getall'
+    private readonly userDetailsUrl = this.baseUrl + 'users/get'
 
 
 
@@ -59,6 +60,16 @@ export class DataService {
             }
         }
         const result = await fetch(this.allUsersUrl, options);
+        return await result.json();
+    }
+
+    public async getUserDetails(authorization: string, userId: string): Promise<User> {
+        const options = {
+            headers: {
+                Authorization: authorization
+            }
+        }
+        const result = await fetch(`${this.userDetailsUrl}?id=${userId}`, options);
         return await result.json();
     }
 

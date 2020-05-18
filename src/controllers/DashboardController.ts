@@ -1,31 +1,23 @@
 import { BaseController } from "./BaseController";
 import { DataService } from "../services/DataService";
 import { SessionToken, AccessRights } from "../models/AuthModels";
+import { User } from "../models/UserModel";
 
 export class DashboardController extends BaseController {
 
     private dataService: DataService = new DataService()
     private usersTable: HTMLTableElement = this.initializeUsersTable();
+    private userDetailsArea = document.createElement("div");
+    private sessionTokenId: string = '';
 
     createView(sessionToken: SessionToken | null): HTMLDivElement {
         this.container.innerText = 'This is the Dashboard! You should not be here if not logged in!!!'
 
         if (sessionToken) {
-            // const getDataButton = this.createButton('get some!', async () => {
-            //     try {
-            //         console.log('getting some:');
-            //         const result = await this.dataService.getAllUsers(sessionToken.tokenId)
-            //         console.log(result)
-            //         console.log('end of get some!')
-            //     } catch (error) {
-            //         console.error(error)
-            //     }
-
-            // });
-            // this.container.appendChild(getDataButton);
+            this.sessionTokenId = sessionToken.tokenId
             this.generateDataButtons(sessionToken);
         }
-        this.container.appendChild(this.usersTable);
+        this.container.append(this.usersTable, this.userDetailsArea);
         return this.container;
     }
 
@@ -42,7 +34,7 @@ export class DashboardController extends BaseController {
             const button: HTMLButtonElement = this.createButton('Get users', async () => {
                 const users = await this.dataService.getAllUsers(sessionToken.tokenId)
                 for (const user of users) {
-                    this.addTableRow(user.id, user.name);
+                    this.addUserTableRow(user);
                 }
             });
             this.container.appendChild(button);
@@ -57,8 +49,8 @@ export class DashboardController extends BaseController {
         const usersTable = document.createElement('table');
         const tableBody = document.createElement('tbody');
         usersTable.appendChild(this.generateTableHead(
-            'id',
-            'Name'
+            'Name',
+            'Email'
         ))
         usersTable.appendChild(tableBody);
         usersTable.setAttribute('border', '1');
@@ -78,15 +70,27 @@ export class DashboardController extends BaseController {
         return tableHead
     }
 
-    private addTableRow(...values: any): void {
+    private addUserTableRow(user: User): void {
         const tableRow = document.createElement('tr');
-        for (const value of values) {
-            const cell = document.createElement('td');
-            const cellText = document.createTextNode(value);
-            cell.appendChild(cellText);
-            tableRow.appendChild(cell);
+
+        this.addCellToTableRow(user.name, tableRow);
+        this.addCellToTableRow(user.email, tableRow);
+        tableRow.onclick = async () => {
+            const userDetails = await this.dataService.getUserDetails(
+                this.sessionTokenId,
+                user.id
+            );
+            this.userDetailsArea.innerText = JSON.stringify(userDetails)
         }
+
         const tableBody = this.usersTable.getElementsByTagName('tbody')[0];
         tableBody.appendChild(tableRow);
+    }
+
+    private addCellToTableRow(cellValue: string, tableRow: HTMLTableRowElement) {
+        const cell = document.createElement('td');
+        const cellText = document.createTextNode(cellValue);
+        cell.appendChild(cellText);
+        tableRow.appendChild(cell);
     }
 }
